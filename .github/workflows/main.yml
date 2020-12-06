@@ -27,6 +27,6 @@ jobs:
           pip install -r requirements.txt
       - name: Execute script
         env:
-          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
+          BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
         run: python main.py
         
