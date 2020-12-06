@@ -24,5 +24,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Execute script
+        env:
+          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
         run: python main.py
         
