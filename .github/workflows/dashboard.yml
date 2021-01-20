@@ -1,4 +1,4 @@
-name: Update FX
+name: Daily FX Dashboard
 
 # Controls when the action will run.
 on:
@@ -23,6 +23,7 @@ jobs:
       - name: Execute script
         env:
           BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
-          FACEBOOK_ACCESS_TOKEN: ${{ secrets.FACEBOOK_ACCESS_TOKEN }}
-        run: python main.py
+          FACEBOOK_ACCESS_TOKEN: ${{ secrets.TEST_ACCESS_TOKEN }}
+          ALBUM_ID: 225978742414339
+        run: python dashboard.py
         

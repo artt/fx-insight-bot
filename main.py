@@ -22,7 +22,7 @@ if tmp['rate']:
 			   "หมายเหตุ: THBREF = อัตราแลกเปลี่ยนถัวเฉลี่ยถ่วงน้ำหนักระหว่างธนาคาร").format(float(tmp['rate']))
 	graph = facebook.GraphAPI(access_token=os.getenv('FACEBOOK_ACCESS_TOKEN'), version='3.1')
 	api_request = graph.put_object(
-		parent_object=os.getenv('FACEBOOK_PAGE_ID'), # page ID
+		parent_object='me', # page ID
 		connection_name='feed',
 		message=message,
 	)
