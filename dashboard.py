@@ -30,7 +30,7 @@ def get_thbref_before(d):
 
 # THBREF
 
-curdate = datetime(2021, 1, 20)
+curdate = datetime.now()
 var_thb = get_thbref(curdate, curdate)
 
 if var_thb != var_thb:
