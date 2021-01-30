@@ -5,7 +5,7 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   schedule:
-    - cron: '15 11 * * *' # runs at 18:15 (GMT+7)
+    - cron: '5 11 * * *' # runs at 18:05 (GMT+7)
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -23,7 +23,7 @@ jobs:
       - name: Execute script
         env:
           BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
-          TEST_ACCESS_TOKEN: ${{ secrets.TEST_ACCESS_TOKEN }}
-          ALBUM_ID: 225978742414339
+          TEST_ACCESS_TOKEN: ${{ secrets.FACEBOOK_ACCESS_TOKEN }}
+          ALBUM_ID: 258840942322182
         run: python dashboard.py
         
