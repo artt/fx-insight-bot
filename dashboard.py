@@ -35,7 +35,8 @@ curdate = datetime(2021, 29, 1)
 var_thb = get_thbref(curdate, curdate)
 
 if var_thb != var_thb:
-    sys.exit('No data for today.')
+    print('No data for today.')
+    sys.exit(0)
 
 tmp_endlastday = get_thbref_before(curdate)
 tmp_endlastmonth = get_thbref_before(curdate.replace(day=1))
