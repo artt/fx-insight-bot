@@ -124,6 +124,6 @@ msg = (("{}\n\n"
 album_id = os.getenv('ALBUM_ID')
 if not album_id:
 	album_id = 'me'
-graph = facebook.GraphAPI(access_token=os.getenv('TEST_ACCESS_TOKEN'), version='3.1')
+graph = facebook.GraphAPI(access_token=os.getenv('FACEBOOK_ACCESS_TOKEN'), version='3.1')
 api_request = graph.put_photo(image=img_byte_arr,
                 message=msg, album_path=album_id + "/photos")
