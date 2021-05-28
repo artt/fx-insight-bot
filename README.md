@@ -7,3 +7,5 @@ It reads USDTHB reference rate from [BOT API](https://apiportal.bot.or.th/bot/pu
 	as well as other data sources,
 	compile a photo,
 	and post it to a [Facebook album](https://www.facebook.com/media/set/?vanity=thefxinsight&set=a.258840942322182).
+
+Update!
