@@ -28,7 +28,7 @@ jobs:
         run: python dashboard.py
       - name: Notify no trade
         uses: skitionek/notify-microsoft-teams@master
-        if: ${{ env.RUN_RESULT == 'notrade' }}
+        if: always() && ${{ env.RUN_RESULT == 'notrade' }}
         with:
           webhook_url: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
           overwrite: >-
