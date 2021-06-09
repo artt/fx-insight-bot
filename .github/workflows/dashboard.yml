@@ -26,12 +26,9 @@ jobs:
           FACEBOOK_ACCESS_TOKEN: ${{ secrets.FACEBOOK_ACCESS_TOKEN }}
           ALBUM_ID: 258840942322182
         run: python dashboard.py
-      - name: Notify on failure
-        uses: jdcargile/ms-teams-notification@v1.3
+      - name: Notify no trade
+        uses: skitionek/notify-microsoft-teams@master
         if: ${{ env.RUN_RESULT == 'notrade' }}
         with:
-          github-token: ${{ github.token }}
-          ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
-          notification-summary: FX Dashboard failed 
-          notification-color: 17a2b8
-          timezone: Asia/Bangkok
+          webhook_url: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
+          overwrite: "{title: `No trade`, thetmeColor: `FF9999`}"
