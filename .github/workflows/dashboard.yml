@@ -35,5 +35,6 @@ jobs:
             {
               "@type": "MessageCard",
               "@context": "http://schema.org/extensions",
-              "title": "No ${variables} avaliable in here"
+              "title": "No trade"
+              "themeColor": "0076D7"
             }
