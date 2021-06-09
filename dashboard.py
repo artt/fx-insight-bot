@@ -35,7 +35,7 @@ var_thb = get_thbref(curdate, curdate)
 
 if var_thb != var_thb:
     print('No data for today.')
-    print('''"RUN_RESULT=notrade" >> $GITHUB_ENV''')
+    print('::set-env name=RUN_ENV::notrade')
     sys.exit(0)
 
 tmp_endlastday = get_thbref_before(curdate)
