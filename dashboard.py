@@ -33,10 +33,10 @@ def get_thbref_before(d):
 curdate = datetime.now()
 var_thb = get_thbref(curdate, curdate)
 
-if var_thb != var_thb:
-    print('No data for today.')
-    os.system('''echo "RUN_RESULT=notrade" >> $GITHUB_ENV''')
-    sys.exit(0)
+# if var_thb != var_thb:
+#     print('No data for today.')
+#     os.system('''echo "RUN_RESULT=notrade" >> $GITHUB_ENV''')
+#     sys.exit(0)
 
 tmp_endlastday = get_thbref_before(curdate)
 tmp_endlastmonth = get_thbref_before(curdate.replace(day=1))
@@ -51,6 +51,12 @@ var_thb_ytd = var_thb - tmp_endlastyear
 r = requests.get('https://eagle.thaibma.or.th/catcher/dashboard/nonresidentnetflow', verify=False)
 tmp = r.json()[0]
 
+bmadate = tmp['_dailyNetFlow'][0]['DayMonth']
+if (curdate != datetime.strptime(bmadate[:10], '%Y-%m-%d')):
+    print('No BMA data for today yet.')
+    os.system('''echo "RUN_RESULT=nothaibma" >> $GITHUB_ENV''')
+    sys.exit(1)
+
 var_bond = sum(map(lambda x: x['TotalNetValue'], tmp['_dailyNetFlow']))
 var_bond_mtd = tmp['_monthNetFlow'][0]['TotalNetValue']
 var_bond_ytd = tmp['_yearNetFlow'][0]['TotalNetValue']
@@ -60,8 +66,14 @@ var_bond_ytd = tmp['_yearNetFlow'][0]['TotalNetValue']
 
 r = requests.get('https://www.settrade.com/C13_InvestorType.jsp?market=SET')
 tmp = r.content.decode('cp874')
-pattern = "นักลงทุนต่างประเทศ(?:.*?<td){5}.*?>([^<]+)"
 
+setdate = re.findall("สรุปการซื้อขาย ณ วันที่ (\d+)", tmp, re.MULTILINE | re.DOTALL)
+if (int(setdate[0]) != curdate.day):
+    print("No SET data for today yet.")
+    os.system('''echo "RUN_RESULT=noset" >> $GITHUB_ENV''')
+    sys.exit(1)
+
+pattern = "นักลงทุนต่างประเทศ(?:.*?<td){5}.*?>([^<]+)"
 m = re.findall(pattern, tmp, re.MULTILINE | re.DOTALL)
 [var_stock, var_stock_mtd, var_stock_ytd] = list(map(lambda x: float(x.replace(',', '')), m))
 

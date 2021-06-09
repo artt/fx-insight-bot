@@ -31,9 +31,31 @@ jobs:
         if: ${{ env.RUN_RESULT == 'notrade' }}
         with:
           webhook_url: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
-          raw: >-
+          overwrite: >-
             {
-              "@type": "MessageCard",
-              "title": "No trade"
-              "themeColor": "0076D7"
+              "@context": "http://schema.org/extensions",
+              title: `No trade`,
+              themeColor: `FFFF00`
+            }
+      - name: Notify no ThaiBMA data
+        uses: skitionek/notify-microsoft-teams@master
+        if: ${{ env.RUN_RESULT == 'nothaibma' }}
+        with:
+          webhook_url: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
+          overwrite: >-
+            {
+              "@context": "http://schema.org/extensions",
+              title: `No ThaiBMA data`,
+              themeColor: `FF0000`
+            }
+      - name: Notify no SET data
+        uses: skitionek/notify-microsoft-teams@master
+        if: ${{ env.RUN_RESULT == 'noset' }}
+        with:
+          webhook_url: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
+          overwrite: >-
+            {
+              "@context": "http://schema.org/extensions",
+              title: `No SET data`,
+              themeColor: `FF0000`
             }
