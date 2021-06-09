@@ -52,10 +52,10 @@ r = requests.get('https://eagle.thaibma.or.th/catcher/dashboard/nonresidentnetfl
 tmp = r.json()[0]
 
 bmadate = tmp['_dailyNetFlow'][0]['DayMonth']
-if (curdate != datetime.strptime(bmadate[:10], '%Y-%m-%d')):
+if (curdate.date() != datetime.strptime(bmadate[:10], '%Y-%m-%d').date()):
     print('No BMA data for today yet.')
     os.system('''echo "RUN_RESULT=nothaibma" >> $GITHUB_ENV''')
-    sys.exit(1)
+    sys.exit(0)
 
 var_bond = sum(map(lambda x: x['TotalNetValue'], tmp['_dailyNetFlow']))
 var_bond_mtd = tmp['_monthNetFlow'][0]['TotalNetValue']
@@ -71,7 +71,7 @@ setdate = re.findall("สรุปการซื้อขาย ณ วัน�
 if (int(setdate[0]) != curdate.day):
     print("No SET data for today yet.")
     os.system('''echo "RUN_RESULT=noset" >> $GITHUB_ENV''')
-    sys.exit(1)
+    sys.exit(0)
 
 pattern = "นักลงทุนต่างประเทศ(?:.*?<td){5}.*?>([^<]+)"
 m = re.findall(pattern, tmp, re.MULTILINE | re.DOTALL)
