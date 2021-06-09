@@ -35,7 +35,8 @@ var_thb = get_thbref(curdate, curdate)
 
 if var_thb != var_thb:
     print('No data for today.')
-    sys.exit(1)
+    os.environ['RUN_RESULT'] = "notrade"
+    sys.exit(0)
 
 tmp_endlastday = get_thbref_before(curdate)
 tmp_endlastmonth = get_thbref_before(curdate.replace(day=1))
