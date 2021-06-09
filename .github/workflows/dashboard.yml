@@ -59,3 +59,14 @@ jobs:
               title: `No SET data`,
               themeColor: `FF0000`
             }
+      - name: Notify no SET data
+        uses: skitionek/notify-microsoft-teams@master
+        if: ${{ env.RUN_RESULT == 'success' }}
+        with:
+          webhook_url: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
+          overwrite: >-
+            {
+              "@context": "http://schema.org/extensions",
+              title: `Success`,
+              themeColor: `00CC00`
+            }

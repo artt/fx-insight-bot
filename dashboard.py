@@ -33,10 +33,10 @@ def get_thbref_before(d):
 curdate = datetime.now()
 var_thb = get_thbref(curdate, curdate)
 
-# if var_thb != var_thb:
-#     print('No data for today.')
-#     os.system('''echo "RUN_RESULT=notrade" >> $GITHUB_ENV''')
-#     sys.exit(0)
+if var_thb != var_thb:
+    print('No data for today.')
+    os.system('''echo "RUN_RESULT=notrade" >> $GITHUB_ENV''')
+    sys.exit(0)
 
 tmp_endlastday = get_thbref_before(curdate)
 tmp_endlastmonth = get_thbref_before(curdate.replace(day=1))
@@ -44,7 +44,6 @@ tmp_endlastyear = get_thbref_before(curdate.replace(month=1, day=1))
 var_thb_1d = var_thb - tmp_endlastday
 var_thb_mtd = var_thb - tmp_endlastmonth
 var_thb_ytd = var_thb - tmp_endlastyear
-
 
 # ThaiBMA
 
@@ -139,3 +138,5 @@ if not album_id:
 graph = facebook.GraphAPI(access_token=os.getenv('FACEBOOK_ACCESS_TOKEN'), version='3.1')
 api_request = graph.put_photo(image=img_byte_arr,
                 message=msg, album_path=album_id + "/photos")
+
+os.system('''echo "RUN_RESULT=success" >> $GITHUB_ENV''')
