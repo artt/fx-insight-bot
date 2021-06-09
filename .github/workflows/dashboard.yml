@@ -31,16 +31,15 @@ jobs:
         if: ${{ env.RUN_RESULT == 'notrade' }}
         with:
           webhook_url: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
-          overwrite: >-
+          raw: >-
             {
               "@type": "MessageCard",
               "@context": "http://schema.org/extensions",
               "themeColor": "0076D7",
-              "summary": "Larry Bryant created a new task",
+              "summary": "Test",
               "sections": [{
                   "activityTitle": "Larry Bryant created a new task",
                   "activitySubtitle": "On Project Tango",
-                  "activityImage": "https://teamsnodesample.azurewebsites.net/static/img/image5.png",
                   "facts": [{
                       "name": "Assigned to",
                       "value": "Unassigned"
