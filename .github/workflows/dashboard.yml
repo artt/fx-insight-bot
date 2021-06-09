@@ -28,7 +28,7 @@ jobs:
         run: python dashboard.py
       - name: Notify no trade
         uses: skitionek/notify-microsoft-teams@master
-        if: always() && ${{ env.RUN_RESULT == 'notrade' }}
+        if: ${{ env.RUN_RESULT == 'notrade' }}
         with:
           webhook_url: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
           overwrite: >-
@@ -39,7 +39,7 @@ jobs:
             }
       - name: Notify no ThaiBMA data
         uses: skitionek/notify-microsoft-teams@master
-        if: failed() && ${{ env.RUN_RESULT == 'nothaibma' }}
+        if: ${{ env.RUN_RESULT == 'nothaibma' }}
         with:
           webhook_url: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
           overwrite: >-
@@ -50,7 +50,7 @@ jobs:
             }
       - name: Notify no SET data
         uses: skitionek/notify-microsoft-teams@master
-        if: failed() && ${{ env.RUN_RESULT == 'noset' }}
+        if: ${{ env.RUN_RESULT == 'noset' }}
         with:
           webhook_url: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
           overwrite: >-
