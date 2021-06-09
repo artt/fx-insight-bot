@@ -31,4 +31,9 @@ jobs:
         if: ${{ env.RUN_RESULT == 'notrade' }}
         with:
           webhook_url: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
-          overwrite: "{title: `No trade`, thetmeColor: `FF9999`}"
+          overwrite: >-
+            {
+              "@context": "http://schema.org/extensions",
+              title: `No trade`,
+              themeColor: `FFFF00`
+            }
