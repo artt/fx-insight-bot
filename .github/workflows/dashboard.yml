@@ -28,6 +28,7 @@ jobs:
         run: python dashboard.py
       - name: Notify on failure
         uses: jdcargile/ms-teams-notification@v1.3
+        if: failure()
         with:
           github-token: ${{ github.token }}
           ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
