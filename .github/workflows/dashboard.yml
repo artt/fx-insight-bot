@@ -34,7 +34,6 @@ jobs:
           raw: >-
             {
               "@type": "MessageCard",
-              "@context": "http://schema.org/extensions",
               "title": "No trade"
               "themeColor": "0076D7"
             }
