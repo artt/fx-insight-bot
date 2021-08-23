@@ -24,7 +24,7 @@ jobs:
         env:
           BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
           FACEBOOK_ACCESS_TOKEN: ${{ secrets.FACEBOOK_ACCESS_TOKEN }}
-          ALBUM_ID: 375441003995508
+          ALBUM_ID: 258840942322182
         run: python dashboard.py
       - name: Notify no trade
         uses: skitionek/notify-microsoft-teams@master
