@@ -63,18 +63,18 @@ var_bond_ytd = tmp['_yearNetFlow'][0]['TotalNetValue']
 
 # SETTrade
 
-r = requests.get('https://www.settrade.com/C13_InvestorType.jsp?market=SET')
-tmp = r.content.decode('cp874')
+r = requests.get('https://www.settrade.com/api/set/market/SET/investor-type-summary')
+tmp = r.json()
+setdate = tmp['oneday']['endDate']
 
-setdate = re.findall("สรุปการซื้อขาย ณ วันที่ (\d+)", tmp, re.MULTILINE | re.DOTALL)
-if (int(setdate[0]) != curdate.day):
+if (curdate.date() != datetime.strptime(setdate[:10], '%Y-%m-%d').date()):
     print("No SET data for today yet.")
     os.system('''echo "RUN_RESULT=noset" >> $GITHUB_ENV''')
     sys.exit(0)
 
-pattern = "นักลงทุนต่างประเทศ(?:.*?<td){5}.*?>([^<]+)"
-m = re.findall(pattern, tmp, re.MULTILINE | re.DOTALL)
-[var_stock, var_stock_mtd, var_stock_ytd] = list(map(lambda x: float(x.replace(',', '')), m))
+var_stock = tmp['oneday']['investors'][2]['netValue'] / 1e6
+var_stock_mtd = tmp['mtd']['investors'][2]['netValue'] / 1e6
+var_stock_ytd = tmp['ytd']['investors'][2]['netValue'] / 1e6
 
 
 # Create photo to be posted
