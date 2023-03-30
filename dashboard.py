@@ -63,18 +63,30 @@ var_bond_ytd = tmp['_yearNetFlow'][0]['TotalNetValue']
 
 # SETTrade
 
-r = requests.get('https://www.settrade.com/api/set/market/SET/investor-type-summary')
-tmp = r.json()
-setdate = tmp['oneday']['endDate']
+r = requests.request("GET",
+                     "https://www.settrade.com/th/equities/market-data/historical-report/investor-type?market=SET",
+                     headers={'accept': 'text/html'})
 
-if (curdate.date() != datetime.strptime(setdate[:10], '%Y-%m-%d').date()):
-    print("No SET data for today yet.")
-    os.system('''echo "RUN_RESULT=noset" >> $GITHUB_ENV''')
-    sys.exit(0)
+regex = r"นักลงทุนต่างประเทศ.*?(?:<td.*?){5}.*?div.*?>[^\-0-9]*([\-0-9,\.]+).*?(?:<td.*?){5}.*?div.*?>[^\-0-9]*([\-0-9,\.]+).*?(?:<td.*?){5}.*?div.*?>[^\-0-9]*([\-0-9,\.]+)"
 
-var_stock = tmp['oneday']['investors'][2]['netValue'] / 1e6
-var_stock_mtd = tmp['mtd']['investors'][2]['netValue'] / 1e6
-var_stock_ytd = tmp['ytd']['investors'][2]['netValue'] / 1e6
+matches = re.search(regex, r.text, re.DOTALL)
+
+var_stock = float(matches.group(1).replace(',', ''))
+var_stock_mtd = float(matches.group(2).replace(',', ''))
+var_stock_ytd = float(matches.group(3).replace(',', ''))
+
+# r = requests.get('https://www.settrade.com/api/set/market/SET/investor-type-summary')
+# tmp = r.json()
+# setdate = tmp['endDate']
+
+# if (curdate.date() != datetime.strptime(setdate[:10], '%Y-%m-%d').date()):
+#     print("No SET data for today yet.")
+#     os.system('''echo "RUN_RESULT=noset" >> $GITHUB_ENV''')
+#     sys.exit(0)
+
+# var_stock = tmp['oneday']['investors'][2]['netValue'] / 1e6
+# var_stock_mtd = tmp['mtd']['investors'][2]['netValue'] / 1e6
+# var_stock_ytd = tmp['ytd']['investors'][2]['netValue'] / 1e6
 
 
 # Create photo to be posted
